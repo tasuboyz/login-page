@@ -15,7 +15,7 @@ function App() {
 
   const inviaMessaggio = async (): Promise<void> => {
     const user = window.Telegram.WebApp.initDataUnsafe?.user;
-    const login_info = { user.id, account, wif };
+    const login_info = { userId: user.id, account: account, wif: wif };
     try {
       const response = await postAPI.login(login_info);
       if (response.error) {
@@ -37,7 +37,7 @@ function App() {
     }
   };
 
-  return (
+ return (
         <div className="wrapper">
             <form>
                 <h1>Login</h1>
