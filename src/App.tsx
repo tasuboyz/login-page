@@ -12,19 +12,6 @@ declare global {
 function LoginPage() {
     const [account, setAccount] = React.useState('');
     const [wif, setWif] = React.useState('');
-    const [userId, setUserId] = React.useState<number | null>(null);
-
-    const getUserInfo = () => {
-      const user = window.Telegram.WebApp.initDataUnsafe.user;
-      if (user) {
-        setUserId(user.id);
-        window.Telegram.WebApp.showPopup({
-          title: "User ID",
-          message: `Il tuo ID è: ${user.id}`,
-          buttons: [{ type: 'ok' }]
-        });
-      }
-    };
 
     const inviaMessaggio = async (): Promise<void> => {
         const user = window.Telegram.WebApp.initDataUnsafe.user;
@@ -49,10 +36,6 @@ function LoginPage() {
             console.error('Errore durante l\'invio del messaggio:', error);
         }
     };
-
-    React.useEffect(() => {
-        getUserInfo();
-    }, []);
 
     return (
         <div className="wrapper">
