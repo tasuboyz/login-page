@@ -43,7 +43,11 @@ function App() {
             console.error('Errore durante l\'invio del messaggio:', error);
         }
     };
-
+  
+React.useEffect(() => {
+        getUserInfo();
+    }, []);
+  
 return (
   <div className="wrapper">
       <form>
