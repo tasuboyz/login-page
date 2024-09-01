@@ -18,6 +18,11 @@ function App() {
     const user = window.Telegram.WebApp.initDataUnsafe?.user;
     if (user) {
       setUserId(user.id);
+      window.Telegram.WebApp.showPopup({
+      title: "Login effettuato",
+      message: `User ID: ${user.id}`,
+      buttons: [{ type: 'ok' }]
+    });
     }
   };
 
