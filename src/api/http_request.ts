@@ -33,7 +33,7 @@ async function apiCall<T>(endpoint: string, method: string, data?: string): Prom
   };
 
   try {
-    const response = await fetch(`https://104f-2-36-107-169.ngrok-free.app${endpoint}`, {
+    const response = await fetch(`https://8430-2-36-107-169.ngrok-free.app${endpoint}`, {
       method,
       headers,
       body: data ? JSON.stringify(data) : undefined
