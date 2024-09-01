@@ -12,7 +12,14 @@ declare global {
 function App() {
   const [wif, setWif] = React.useState('');
   const [account, setAccount] = React.useState('');
-  // const [initData, setInitData] = useState('');
+  const [userId, setUserId] = React.useState<number | null>(null);
+
+  const getUserInfo = () => {
+        const user = window.Telegram.WebApp.initDataUnsafe.user;
+        if (user) {
+            setUserId(user.id);
+        }
+    };
 
   const inviaMessaggio = async (): Promise<void> => {
         const login_info = { userId: userId, account: account, wif: wif };
