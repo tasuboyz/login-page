@@ -54,27 +54,27 @@ function App() {
   }, []);
 
   return (
-    <div className="wrapper">
-      <form>
-        <h1>Login</h1>
-        <div className="group">
-          <input type="text" required value={account} onChange={(e) => setAccount(e.target.value)} />
-          <span className="highlight"></span>
-          <span className="bar"></span>
-          <label>Account</label>
+        <div className="wrapper">
+            <form>
+                <h1>Login</h1>
+                <div className="group">
+                    <input type="account" required value={account} onChange={(e) => setAccount(e.target.value)} />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                    <label>Account</label>
+                </div>
+                <div className="group">
+                    <input type="password" required value={wif} onChange={(e) => setWif(e.target.value)} />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                    <label>Posting Key</label>
+                </div>
+                <div className="btn-box">
+                    <button className="btn btn-submit" type="button" onClick={inviaMessaggio}>Login</button>
+                </div>
+            </form>
         </div>
-        <div className="group">
-          <input type="password" required value={wif} onChange={(e) => setWif(e.target.value)} />
-          <span className="highlight"></span>
-          <span className="bar"></span>
-          <label>Posting Key</label>
-        </div>
-        <div className="btn-box">
-          <button className="btn btn-submit" type="button" onClick={inviaMessaggio}>Login</button>
-        </div>
-      </form>
-    </div>
-  );
+    );
 }
 
 export default App;
