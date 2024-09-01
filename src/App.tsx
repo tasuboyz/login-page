@@ -14,13 +14,28 @@ function App() {
   const [account, setAccount] = React.useState('');
   // const [initData, setInitData] = useState('');
 
-  const inviaMessaggio = (): void => {
-    const post = {
-        account: account,
-        password: wif
-    }
-    window.Telegram.WebApp.sendData(JSON.stringify(post));
-};
+  const inviaMessaggio = async (): Promise<void> => {
+        const login_info = { userId: userId, account: account, wif: wif };
+        try {
+            const response = await postAPI.login(login_info);
+            if (response.error) {
+                throw new Error(response.error);
+            }
+            window.Telegram.WebApp.showPopup({
+                title: "Login effettuato",
+                message: `Login effettuato con successo!`,
+                buttons: [{ type: 'ok' }]
+            });
+            window.location.reload();
+        } catch (error) {
+            window.Telegram.WebApp.showPopup({
+                title: "Errore",
+                message: `${error}`,
+                buttons: [{ type: 'ok' }]
+            });
+            console.error('Errore durante l\'invio del messaggio:', error);
+        }
+    };
 
 return (
   <div className="wrapper">
