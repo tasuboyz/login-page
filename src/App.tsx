@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css'
 import { Telegram } from "@twa-dev/types";
+import { postAPI } from './api/http_request';
 
 declare global {
   interface Window {
