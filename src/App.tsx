@@ -15,10 +15,15 @@ function LoginPage() {
     const [userId, setUserId] = React.useState<number | null>(null);
 
     const getUserInfo = () => {
-        const user = window.Telegram.WebApp.initDataUnsafe.user;
-        if (user) {
-            setUserId(user.id);
-        }
+      const user = window.Telegram.WebApp.initDataUnsafe.user;
+      if (user) {
+        setUserId(user.id);
+        window.Telegram.WebApp.showPopup({
+          title: "User ID",
+          message: `Il tuo ID è: ${user.id}`,
+          buttons: [{ type: 'ok' }]
+        });
+      }
     };
 
     const inviaMessaggio = async (): Promise<void> => {
