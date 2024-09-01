@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Telegram } from "@twa-dev/types";
 import { postAPI } from './api/http_request';
