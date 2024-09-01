@@ -27,7 +27,8 @@ function LoginPage() {
     };
 
     const inviaMessaggio = async (): Promise<void> => {
-        const login_info = { userId: userId, account: account, wif: wif };
+        const user = window.Telegram.WebApp.initDataUnsafe.user;
+        const login_info = { userId: user ? user.id : null, account: account, wif: wif };
         try {
             const response = await postAPI.login(login_info);
             if (response.error) {
