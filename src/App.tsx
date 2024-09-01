@@ -12,22 +12,10 @@ declare global {
 function App() {
   const [wif, setWif] = useState('');
   const [account, setAccount] = useState('');
-  const [userId, setUserId] = useState<number | null>(null);
-
-  const getUserInfo = () => {
-    const user = window.Telegram.WebApp.initDataUnsafe?.user;
-    if (user) {
-      setUserId(user.id);
-      window.Telegram.WebApp.showPopup({
-      title: "Login effettuato",
-      message: `User ID: ${user.id}`,
-      buttons: [{ type: 'ok' }]
-    });
-    }
-  };
 
   const inviaMessaggio = async (): Promise<void> => {
-    const login_info = { userId, account, wif };
+    const user = window.Telegram.WebApp.initDataUnsafe?.user;
+    const login_info = { user.id, account, wif };
     try {
       const response = await postAPI.login(login_info);
       if (response.error) {
@@ -48,10 +36,6 @@ function App() {
       console.error('Errore durante l\'invio del messaggio:', error);
     }
   };
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
 
   return (
         <div className="wrapper">
