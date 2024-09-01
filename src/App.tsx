@@ -1,43 +1,54 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import React from 'react';
 import { Telegram } from "@twa-dev/types";
 import { postAPI } from './api/http_request';
+import './App.css'
 
 declare global {
-  interface Window {
-    Telegram: Telegram;
-  }
+    interface Window {
+        Telegram: Telegram;
+    }
 }
 
-function App() {
-  const [wif, setWif] = useState('');
-  const [account, setAccount] = useState('');
+function LoginPage() {
+    const [account, setAccount] = React.useState('');
+    const [wif, setWif] = React.useState('');
+    const [userId, setUserId] = React.useState<number | null>(null);
 
-  const inviaMessaggio = async (): Promise<void> => {
-    const user = window.Telegram.WebApp.initDataUnsafe?.user;
-    const login_info = { userId: user.id, account: account, wif: wif };
-    try {
-      const response = await postAPI.login(login_info);
-      if (response.error) {
-        throw new Error(response.error);
-      }
-      window.Telegram.WebApp.showPopup({
-        title: "Login effettuato",
-        message: "Login effettuato con successo!",
-        buttons: [{ type: 'ok' }]
-      });
-      window.location.reload();
-    } catch (error) {
-      window.Telegram.WebApp.showPopup({
-        title: "Errore",
-        message: `${error}`,
-        buttons: [{ type: 'ok' }]
-      });
-      console.error('Errore durante l\'invio del messaggio:', error);
-    }
-  };
+    const getUserInfo = () => {
+        const user = window.Telegram.WebApp.initDataUnsafe.user;
+        if (user) {
+            setUserId(user.id);
+        }
+    };
 
- return (
+    const inviaMessaggio = async (): Promise<void> => {
+        const login_info = { userId: userId, account: account, wif: wif };
+        try {
+            const response = await postAPI.login(login_info);
+            if (response.error) {
+                throw new Error(response.error);
+            }
+            window.Telegram.WebApp.showPopup({
+                title: "Login effettuato",
+                message: `Login effettuato con successo!`,
+                buttons: [{ type: 'ok' }]
+            });
+            window.location.reload();
+        } catch (error) {
+            window.Telegram.WebApp.showPopup({
+                title: "Errore",
+                message: `${error}`,
+                buttons: [{ type: 'ok' }]
+            });
+            console.error('Errore durante l\'invio del messaggio:', error);
+        }
+    };
+
+    React.useEffect(() => {
+        getUserInfo();
+    }, []);
+
+    return (
         <div className="wrapper">
             <form>
                 <h1>Login</h1>
@@ -61,4 +72,4 @@ function App() {
     );
 }
 
-export default App;
+export default LoginPage;
